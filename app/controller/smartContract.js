@@ -101,8 +101,8 @@ class SmartContractController extends Controller {
 			let status = 'starting'; // starting：开始游戏； sent：已发送settleBet； completed：已完成。
 			let {address, blockNum, usedNum, random, commit, sign} = res;
 			sign = JSON.stringify(sign); // String格式存入DB
-			let modulo = typeof(ctx.request.body.modulo) === 'undefined' ? '' : ctx.request.body.modulo;
-			let value = typeof(ctx.request.body.value) === 'undefined' ? '' : ctx.request.body.value;
+			let modulo = typeof(ctx.request.body.modulo) === 'undefined' ? '' : ctx.request.body.modulo.toString();
+			let value = typeof(ctx.request.body.value) === 'undefined' ? '' : ctx.request.body.value.toString();
 
 			// 入库
 			const ret = await ctx.service.smartContract.create({
@@ -112,9 +112,9 @@ class SmartContractController extends Controller {
 				random,
 				commit,
 				sign,
-				status,
 				modulo,
-				value
+				value,
+				status
 			});
 			ret.sign = JSON.parse(ret.sign); // JSON对象格式返回
 
