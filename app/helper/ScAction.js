@@ -29,14 +29,14 @@ let ScAction = {
 	 * 定时任务：获取Events的commit类型
 	 */
 	getEvents: async function (ctx) {
-		let fromTime = 0;
-		let timestamp = (new Date()).valueOf();
-		// fromTime = await ctx.service.smartContract.getFromTime('starting');
+		let fromTime = await ctx.service.smartContract.getFromTime('starting');
+		let timestamp = (new Date(fromTime)).valueOf();
+
 		try {
-			let ev = await ctx.app.tronWeb.getEventResult(ctx.app.myData.contractAddress, fromTime, 'Commit');
+			let ev = await ctx.app.tronWeb.getEventResult(ctx.app.myData.contractAddress, timestamp, 'Commit');
 
 			for (let i in ev) {
-				let commit = MyTools.to66Length(ev[i].result.commit);
+				let commit = MyTools.to66Length(ctx.app.tronWeb.toBigNumber(ev[i].result.commit).toString(16));
 
 				let updates = {
 					blockNumber: ev[i].block,
