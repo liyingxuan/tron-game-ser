@@ -47,6 +47,8 @@ MyTools = {
 				tmpStr = '0' + tmpStr
 			}
 			str = '0x' + tmpStr + str.substr(2);
+		} else {
+			str = str.substr(0, 66)
 		}
 
 		return str

@@ -1,12 +1,13 @@
 const EthCrypto = require('eth-crypto');
 const web3 = require('web3');
+const MyTools = require('./MyTools');
 
 let ScAction = {
 	getSign: async function (ctx) {
 		let block = await ctx.app.tronWeb.trx.getCurrentBlock();
 		let num = block.block_header.raw_data.number - 5;
 		let bNumber = web3.utils.padLeft(num, 10);
-		let commit = web3.utils.randomHex(32);
+		let commit = MyTools.to66LengthFor0x(web3.utils.randomHex(32));
 		let hash = web3.utils.soliditySha3(bNumber, commit);
 		let signHash = EthCrypto.sign(ctx.app.myData.signAccountPK, hash);
 		let sign = {
@@ -33,19 +34,19 @@ let ScAction = {
 		// fromTime = await ctx.service.smartContract.getFromTime('starting');
 		try {
 			let ev = await ctx.app.tronWeb.getEventResult(ctx.app.myData.contractAddress, fromTime, 'Commit');
-			for (i = 0; i < ev.length; i++) {
-				let commit = ev[i].result.commit;
+
+			for (let i in ev) {
+				let commit = MyTools.to66Length(ev[i].result.commit);
 
 				let updates = {
 					blockNumber: ev[i].block,
 					txHash: ev[i].transaction,
-					// paymentRet: JSON.stringify(ev[i].result),
-					paymentRet: ev[i].result,
+					paymentRet: JSON.stringify(ev[i].result),
 					res: ev[i].result.res,
 					amount: ev[i].result.amount,
 					status: 'completed'
-				}
-				// console.log(updates)
+				};
+
 				this.updateSC(ctx, commit, updates)
 			}
 		} catch (e) {

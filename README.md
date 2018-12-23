@@ -18,7 +18,6 @@ egg-project
 │   |   └── users.js
 │   ├── public（放JS/CSS等静态资源）
 │   |   └── LoadFiles（合约相关的）
-|   |       └── dice2win.json
 │   ├── schedule（app启动时的定时任务）
 │   |   └── xxx.css
 │   └── service
@@ -29,12 +28,7 @@ egg-project
 │   ├── config.prod.js
 |   └── plugin.js
 ├── database（数据库）
-├── logs（日志）
-└── truffle
-    ├── contracts（合约目录）
-    ├── migrations （迁移文件）
-    ├── truffle.js
-    └── truffle-config.js
+└── logs（日志）
 ```
 
 ### 本地开发
@@ -80,27 +74,6 @@ $ npx sequelize db:migrate
 # npx sequelize db:migrate:undo
 # 可以通过 `db:migrate:undo:all` 回退到初始状态
 # npx sequelize db:migrate:undo:all
-```
-
-### Truffle部署合约做本地ETH网络联调
-首先安装： [Ganache](https://truffleframework.com/ganache) 。
-```bash
-# 安装必须组件：
-$ npm i -g truffle
-$ truffle version
-Truffle v4.1.14 (core: 4.1.14)
-Solidity v0.4.24 (solc-js)
-
-# 建立目录和初始化：
-$ mkdir truffle && cd truffle
-$ truffle init
-
-##
-# 注意一定要cd到truffle目录下执行下一步：
-##
-
-# build和部署：
-$ truffle migrate --reset
 ```
 
 ### 线上部署
