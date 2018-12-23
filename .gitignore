@@ -1,0 +1,11 @@
+node_modules/
+run/
+logs/
+
+# Editor directories and files
+.idea
+package-lock.json
+
+# My files
+app/public/LoadFiles/*
+config/config.local.js
