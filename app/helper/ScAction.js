@@ -41,6 +41,8 @@ let ScAction = {
 				let updates = {
 					blockNumber: ev[i].block,
 					txHash: ev[i].transaction,
+					modulo: ev[i].result.modulo,
+					mask: ev[i].result.mask,
 					paymentRet: JSON.stringify(ev[i].result),
 					res: ev[i].result.res,
 					amount: ev[i].result.amount,

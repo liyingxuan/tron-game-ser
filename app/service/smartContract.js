@@ -5,7 +5,7 @@ const Service = require('egg').Service;
 class SmartContract extends Service {
 	// 向数据库请求全部数据，默认10条
 	async list({offset = 0, limit = 10, address, modulo}) {
-		const attributes = ['address', 'random', 'txHash', 'paymentRet', 'res', 'amount'];
+		const attributes = ['address', 'random', 'value', 'mask', 'modulo', 'txHash', 'paymentRet', 'res', 'amount'];
 		const order = [['id', 'desc']];
 
 		if ((typeof(address) === 'undefined' || address === '') && (typeof(modulo) === 'undefined' || modulo === '')) {
