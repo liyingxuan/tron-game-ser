@@ -7,8 +7,7 @@ let ScAction = {
 		let num = block.block_header.raw_data.number - 5;
 		let bNumber = web3.utils.padLeft(num, 10);
 		let commit = web3.utils.randomHex(32);
-		let hash = web3.utils.soliditySha3(bnumber, commit);
-
+		let hash = web3.utils.soliditySha3(bNumber, commit);
 		let signHash = EthCrypto.sign(ctx.app.myData.signAccountPK, hash);
 		let sign = {
 			r: signHash.slice(0, 66),
